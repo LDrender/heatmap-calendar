@@ -1,0 +1,142 @@
+.calendar-heatmap {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    width: fit-content;
+    --gap-box: 1px;
+    --color-text: #1e1e1e;
+    --color-empty: #e1e1e1;
+}
+
+.calendar-heatmap.dark {
+    width: fit-content;
+    --gap-box: 1px;
+    --color-text: #e1e1e1;
+    --color-text-reverse: #1e1e1e;
+}
+
+.calendar-heatmap .calendar-heatmap-title {
+    color: var(--color-text);
+}
+
+.calendar-heatmap .calendar-heatmap-date-container {
+    display: flex;
+    gap: var(--gap-box);
+}
+
+.calendar-heatmap .calendar-heatmap-date-container .calendar-heatmap-column {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-box);
+}
+.calendar-heatmap .calendar-heatmap-day {
+    width: 20px;
+    height: 20px;
+    margin: 1px;
+    border-radius: 3px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    position: relative;
+}
+
+.calendar-heatmap .calendar-heatmap-day[data-level="0"] {
+    background-color: rgba(110, 118, 129, 25%);
+    border-color: transparent;
+}
+
+.calendar-heatmap .calendar-heatmap-day[data-level="1"] {
+    background-color: #0e4429;
+    outline: #0e4429;
+}
+
+.calendar-heatmap .calendar-heatmap-day[data-level="2"] {
+    background-color: #006d32;
+    outline: #006d32;
+}
+
+.calendar-heatmap .calendar-heatmap-day[data-level="3"] {
+    background-color:  #26a641;
+    outline: #26a641;
+}
+
+.calendar-heatmap .calendar-heatmap-day[data-level="4"] {
+    background-color: #39d353;
+    outline: #39d353;
+}
+
+.calendar-heatmap .calendar-heatmap-day.current {
+    outline: 1px solid var(--color-text);
+}
+
+.calendar-heatmap .calendar-heatmap-legend {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.calendar-heatmap .calendar-heatmap-legend.calendar-heatmap-legend-position-left {
+    justify-content: flex-start;
+}
+
+.calendar-heatmap .calendar-heatmap-legend.calendar-heatmap-legend-position-center {
+    justify-content: center;
+}
+
+.calendar-heatmap .calendar-heatmap-legend.calendar-heatmap-legend-position-right {
+    justify-content: flex-end;
+}
+
+.calendar-heatmap .calendar-heatmap-legend .calendar-heatmap-legend-min-label {
+    color: var(--color-text);
+}
+
+.calendar-heatmap .calendar-heatmap-legend .calendar-heatmap-legend-max-label {
+    color: var(--color-text);
+}
+
+
+
+/* Tooltip */
+.calendar-heatmap .calendar-heatmap-day[data-tooltip] {
+    cursor: pointer;
+}
+
+.calendar-heatmap .calendar-heatmap-day[data-tooltip]::before,
+.calendar-heatmap .calendar-heatmap-day[data-tooltip]::after {
+    top: -100%;
+	left: 50%;
+	position: absolute;
+	color: var(--color-text-reverse);
+	visibility: hidden;
+	opacity: 0;
+	transition: all 0.2s ease-in-out;
+    z-index: 200;
+}
+
+.calendar-heatmap .calendar-heatmap-day[data-tooltip]:hover::before,
+.calendar-heatmap .calendar-heatmap-day[data-tooltip]:hover::after{
+	visibility: visible;
+	opacity: 1;
+}
+
+.calendar-heatmap .calendar-heatmap-day[data-tooltip]::before {
+	content: attr(data-tooltip);
+	background-color: var(--color-text);
+	width: max-content;
+	height: auto;
+	border-radius: 7px;
+	display: block;
+	font-size: .8rem;
+	padding: 5px 10px;
+	box-shadow: 3px 3px 5px rgb(0 0 0 / 40%);
+    transform: translate(-50%, -100%);
+}
+
+.calendar-heatmap .calendar-heatmap-day[data-tooltip]::after {
+    transform: translate(-50%, 0%);
+	content: "";
+	width: 0%;
+	height: 0%;
+    border-top : 7px solid var(--color-text);
+    border-right : 8px solid transparent;
+    border-left : 8px solid transparent;
+}

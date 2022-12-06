@@ -1,0 +1,25 @@
+{
+  "name": "heatmap-calendar",
+  "version": "1.0.0",
+  "description": "Heatmap-calendar is a javascript module to create calendar heatmap to visualize time series data",
+  "main": "heatmapCalendar.js",
+  "scripts": {
+    "build": "rollup ./src/heatmapCalendar.js --format iife --name \"heatmapCalendar\" --file heatmapCalendar.min.js "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LDrender/heatmap-calendar.git"
+  },
+  "keywords": [
+    "calendar",
+    "graph",
+    "heat",
+    "map"
+  ],
+  "author": "LD Render",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/LDrender/heatmap-calendar/issues"
+  },
+  "homepage": "https://github.com/LDrender/heatmap-calendar#readme"
+}

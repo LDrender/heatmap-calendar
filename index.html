@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="./src/heatmapCalendar.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body style="background: #27293d;">
+    <div id="heatmap-cal"></div>
+
+    <script src="./heatmapCalendar.min.js"></script>
+    <script>
+
+        let newdata = 
+        [
+            {
+                "value": "1",
+                "date": "2022-09-24"
+            },
+            {
+                "value": "2",
+                "date": "2022-09-26"
+            },
+            {
+                "value": "3",
+                "date": "2022-10-07"
+            },
+            {
+                "value": "6",
+                "date": "2022-10-10"
+            },
+            {
+                "value": "2",
+                "date": "2022-10-11"
+            },
+            {
+                "value": "1",
+                "date": "2022-10-17"
+            },
+            {
+                "value": "5",
+                "date": "2022-10-18"
+            },
+            {
+                "value": "11",
+                "date": "2022-10-24"
+            },
+            {
+                "value": "4",
+                "date": "2022-10-25"
+            },
+            {
+                "value": "1",
+                "date": "2022-10-26"
+            },
+            {
+                "value": "1",
+                "date": "2022-11-02"
+            },
+            {
+                "value": "1",
+                "date": "2022-11-07"
+            },
+            {
+                "value": "2",
+                "date": "2022-11-09"
+            },
+            {
+                "value": "4",
+                "date": "2022-11-10"
+            },
+            {
+                "value": "2",
+                "date": "2022-11-12"
+            },
+            {
+                "value": "1",
+                "date": "2022-11-21"
+            },
+            {
+                "value": "7",
+                "date": "2022-11-22"
+            },
+            {
+                "value": "4",
+                "date": "2022-11-23"
+            },
+            {
+                "value": "1",
+                "date": "2022-11-24"
+            },
+            {
+                "value": "2",
+                "date": "2022-11-28"
+            },
+            {
+                "value": "1",
+                "date": "2022-11-29"
+            },
+            {
+                "value": "1",
+                "date": "2022-12-02"
+            }
+        ];
+
+        let newOptions = {
+            title: 'Nombre de visiteurs par jour',
+            style: 'dark',
+            container: '#heatmap-cal',
+            language: 'en',
+            timezone: 'UTC',
+            monthsDisplay: 5,
+            month: 12,
+            days: 7,
+            displayMode: 'auto',
+            startMonth: 1,
+            toolTip: true,
+            toolTip_Text: "Visiteurs",
+            toolTip_TextPostion: 'after',
+            toolTip_Separator: ' - ',
+            data: [],
+            legend: {
+                show: true,
+                align: 'right',
+                minLabel: 'Moins',
+                maxLabel: 'Plus',
+            },
+        }
+
+        let heat = new heatmapCalendar(newOptions, newdata);
+
+        let date = new Date();
+
+    </script>
+</body>
+</html>
