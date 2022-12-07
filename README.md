@@ -21,7 +21,7 @@ new heatmapCalendar(options, data)
 | days | Integer | The number of days to display per column <br/>``Default: 7`` |
 | month | Integer | The month to start the calendar on (12 = current month, 0 = January, 1 = February, etc.) <br/>``Default: 12``<br/>``Range: 0-12`` |
 | monthsDisplay | Integer | The number of months to display <br/>``Default: 12`` <br/>``Range: 1-12``|
-| displayMode | String | The display mode to use ('year', 'month', 'day', 'custom', 'auto') <br/> - auto : will use the current date. Tips : set the 'monthsDisplay' option to 12 <br/> - year : will start on the first day of the year. Tips : this mods will display 12 months necessarily <br/> - month : will start on the month specified in the 'month' option. Tips : this mods will display 1 month necessarily<br/>``Default: 'auto'``|
+| displayMode | String | The display mode to use ('year', 'month', 'auto') <br/> - auto : will use the current date. Tips : set the 'monthsDisplay' option to 12 <br/> - year : will start on the first day of the year. Tips : this mods will display 12 months necessarily <br/> - month : will start on the month specified in the 'month' option. Tips : this mods will display 1 month necessarily<br/>``Default: 'auto'``|
 | toolTip | Boolean | Choose whether or not to display tooltips when hovering over the calendar boxes |
 | toolTip_Text | String | Text or word to indicate the correspondence of the value |
 | toolTip_TextPostion | String | Choose to display the correspondent text before or after the value <br/>``'before' or 'after'``|
