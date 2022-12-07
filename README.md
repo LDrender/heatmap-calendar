@@ -60,7 +60,8 @@ Data is array of objects, the objects are a composition of two variables : ***va
 | date | Date |
 
 Example :
-``
+
+```javascript
 [
     {
         'value': 5,
@@ -72,7 +73,7 @@ Example :
     }
     ...
 ]
-``
+```
 
 ---
 
