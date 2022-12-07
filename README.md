@@ -20,13 +20,13 @@ new heatmapCalendar(options, data)
 |--|:--:|--|
 | container | String | Selector string for the calendar container to append the calendar to. <br/>``Default: '#heatmap-cal'`` |
 | title | String | Title to display above the calendar |
-| style | Object | Options for the style <br/>***Please refer to the following table (ToolTip Option)*** |
+| style | Object | Options for the style <br/>***\*Please refer to the following table (ToolTip Option)*** |
 | days | Integer | The number of days to display per column <br/>``Default: 7`` |
 | month | Integer | The month to start the calendar on (12 = current month, 0 = January, 1 = February, etc.) <br/>``Default: 12``<br/>``Range: 0-12`` |
 | monthsDisplay | Integer | The number of months to display <br/>``Default: 12`` <br/>``Range: 1-12``|
 | displayMode | String | The display mode to use ('year', 'month', 'auto') <br/> - auto : will use the current date. Tips : set the 'monthsDisplay' option to 12 <br/> - year : will start on the first day of the year. Tips : this mods will display 12 months necessarily <br/> - month : will start on the month specified in the 'month' option. Tips : this mods will display 1 month necessarily<br/>``Default: 'auto'``|
-| toolTip | Object | Options for the toolTip <br/>***Please refer to the following table (ToolTip Option)*** |
-| legend | Object | Options for the legend <br/>***Please refer to the following table (Legend Option)***|
+| toolTip | Object | Options for the toolTip <br/>***\*Please refer to the following table (ToolTip Option)*** |
+| legend | Object | Options for the legend <br/>***\*Please refer to the following table (Legend Option)***|
 
 ### ToolTip Option
 
