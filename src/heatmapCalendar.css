@@ -1,14 +1,19 @@
 .calendar-heatmap {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    width: fit-content;
-    --gap-box: 1px;
-    --color-text: #1e1e1e;
-    --color-empty: #e1e1e1;
+    width: fit-content;                 /* Size of the calendar */
+    --color-text: #1e1e1e;            /* Color text and background color tooltips */
+    --color-text-reverse: #e1e1e1;    /* Color text tooltips */
+    --color-data-level-0: #6e768140;  /* Background color cell [Data-level 0] */
+    --color-data-level-1: #0e4429;    /* Background color cell [Data-level 1] */
+    --color-data-level-2: #006d32;    /* Background color cell [Data-level 2] */
+    --color-data-level-3: #26a641;    /* Background color cell [Data-level 3] */
+    --color-data-level-4: #39d353;    /* Background color cell [Data-level 4] */
+    --cell-size : 20px;                 /* Size of a cell */
+    --cell-radius: 3px;                 /* Border Radius of a cell */
+    --cell-gap: 1px;                    /* Space on a cell */
 }
 
 .calendar-heatmap.dark {
-    width: fit-content;
-    --gap-box: 1px;
     --color-text: #e1e1e1;
     --color-text-reverse: #1e1e1e;
 }
@@ -19,46 +24,46 @@
 
 .calendar-heatmap .calendar-heatmap-date-container {
     display: flex;
-    gap: var(--gap-box);
+    gap: var(--cell-gap);
 }
 
 .calendar-heatmap .calendar-heatmap-date-container .calendar-heatmap-column {
     display: flex;
     flex-direction: column;
-    gap: var(--gap-box);
+    gap: var(--cell-gap);
 }
 .calendar-heatmap .calendar-heatmap-day {
-    width: 20px;
-    height: 20px;
+    width: var(--cell-size);
+    height: var(--cell-size);
     margin: 1px;
-    border-radius: 3px;
+    border-radius: var(--cell-radius);
     border: 1px solid rgba(255, 255, 255, 0.05);
     position: relative;
 }
 
 .calendar-heatmap .calendar-heatmap-day[data-level="0"] {
-    background-color: rgba(110, 118, 129, 25%);
+    background-color: var(--color-data-level-0);
     border-color: transparent;
 }
 
 .calendar-heatmap .calendar-heatmap-day[data-level="1"] {
-    background-color: #0e4429;
-    outline: #0e4429;
+    background-color: var(--color-data-level-1);
+    outline: var(--color-data-level-1);
 }
 
 .calendar-heatmap .calendar-heatmap-day[data-level="2"] {
-    background-color: #006d32;
-    outline: #006d32;
+    background-color: var(--color-data-level-2);
+    outline: var(--color-data-level-2);
 }
 
 .calendar-heatmap .calendar-heatmap-day[data-level="3"] {
-    background-color:  #26a641;
-    outline: #26a641;
+    background-color:  var(--color-data-level-3);
+    outline: var(--color-data-level-3);
 }
 
 .calendar-heatmap .calendar-heatmap-day[data-level="4"] {
-    background-color: #39d353;
-    outline: #39d353;
+    background-color: var(--color-data-level-4);
+    outline: var(--color-data-level-4);
 }
 
 .calendar-heatmap .calendar-heatmap-day.current {
@@ -113,7 +118,7 @@
 }
 
 .calendar-heatmap .calendar-heatmap-day[data-tooltip]:hover::before,
-.calendar-heatmap .calendar-heatmap-day[data-tooltip]:hover::after{
+.calendar-heatmap .calendar-heatmap-day[data-tooltip]:hover::after {
 	visibility: visible;
 	opacity: 1;
 }

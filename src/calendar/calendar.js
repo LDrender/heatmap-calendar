@@ -24,9 +24,19 @@ export default class Calendar extends Options {
         // Create container for the calendar heatmap in the source container
         const calendar = document.createElement('div');
         calendar.classList.add('calendar-heatmap');
-        if(super.config.style === 'dark') {
+        if(super.config.style.type === 'dark') {
             calendar.classList.add('dark');
         }
+        
+        calendar.style.cssText += `--cell-size: ${super.config.style.cellSize}px`;
+        calendar.style.cssText += `--cell-radius: ${super.config.style.cellRadius}px`;
+        calendar.style.cssText += `--cell-gap: ${super.config.style.cellGap}px`;
+        calendar.style.cssText += `--color-data-level-0: ${super.config.style.cellColor_level_0}`;
+        calendar.style.cssText += `--color-data-level-1: ${super.config.style.cellColor_level_1}`;
+        calendar.style.cssText += `--color-data-level-2: ${super.config.style.cellColor_level_2}`;
+        calendar.style.cssText += `--color-data-level-3: ${super.config.style.cellColor_level_3}`;
+        calendar.style.cssText += `--color-data-level-4: ${super.config.style.cellColor_level_4}`;
+        
         document.querySelector(super.config.container).appendChild(calendar);
 
         // Create the calendar heatmap title
@@ -118,12 +128,12 @@ export default class Calendar extends Options {
                     newDay.dataset.level = 4;
                 }
 
-                if(super.config.toolTip) {
-                    if(super.config.toolTip_TextPostion === 'after') {
-                        newDay.dataset.tooltip = `${newDay.dataset.value} ${super.config.toolTip_Text} ${super.config.toolTip_Separator} ${formatDate}`;
+                if(super.config.toolTip.show) {
+                    if(super.config.toolTip.textPostion === 'after') {
+                        newDay.dataset.tooltip = `${newDay.dataset.value} ${super.config.toolTip.text} ${super.config.toolTip.separator} ${formatDate}`;
                     }
                     else {
-                        newDay.dataset.tooltip = `${super.config.toolTip_Text} ${newDay.dataset.value} ${super.config.toolTip_Separator} ${formatDate}`;
+                        newDay.dataset.tooltip = `${super.config.toolTip.text} ${newDay.dataset.value} ${super.config.toolTip.separator} ${formatDate}`;
                     }
                 }
                 

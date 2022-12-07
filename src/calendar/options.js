@@ -4,12 +4,20 @@ export default class Options {
         Options.prototype.config = {
             // Style (light or dark)
             style: 'dark',
+            style: {
+                type: 'dark',
+                cellSize: 20,
+                cellRadius: 3,
+                cellGap: 1,
+                cellColor_level_0: 'rgba(110, 118, 129, 25%)',
+                cellColor_level_1: '#0e4429',
+                cellColor_level_2: '#006d32',
+                cellColor_level_3: '#26a641',
+                cellColor_level_4: '#39d353',
+            },
 
             //Selector string for the calendar container to append the calendar to
             container: '#heatmap-cal',
-
-            //Timezone to use for the calendar to display the correct dates
-            timezone: 'UTC',
 
             //The number of months to display (default & max: 12)
             monthsDisplay: 12,
@@ -43,11 +51,12 @@ export default class Options {
             //Title to display above the calendar
             title: 'Calendar Heatmap',
 
-
-            toolTip: true,
-            toolTip_Text: "Heat value",
-            toolTip_TextPostion: 'after',
-            toolTip_Separator: ' - ',
+            toolTip: {
+                show: true,
+                text: "Heat value",
+                textPostion: 'after',
+                separator: '-',
+            },
 
             //Legend to display below the calendar
             legend: {
@@ -71,12 +80,6 @@ export default class Options {
             //  = Function =
             // ==============
 
-            // Toogle the legend
-            toogleLegend: this.toogleLegend,
-
-            // Set the options
-            setOptions: this.setOptions,
-
             // Get the options
             getOptions: this.getOptions,
 
@@ -99,13 +102,6 @@ export default class Options {
     }
 
     // set the options
-
-    /**
-     * Toggle a boolean option to show legend
-     */
-    toogleLegend() {
-        this.config.legend.show = !this.config.legend.show;
-    };
 
     /**
      * Set the options
@@ -218,7 +214,7 @@ export default class Options {
     // getDateFrom function
     getDateFrom() {
         if (this.displayMode === 'year') {
-            return new Date(new Date().getFullYear(), 0, 1);
+            return new Date(new Date().getFullYear(), 0, 0);
         }
         else if (this.displayMode === 'month') {
             let month = this.month === 12 ? new Date().getMonth() : this.month;

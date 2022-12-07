@@ -4,7 +4,7 @@
   "description": "Heatmap-calendar is a javascript module to create calendar heatmap to visualize time series data",
   "main": "heatmapCalendar.js",
   "scripts": {
-    "build": "rollup ./src/heatmapCalendar.js --format iife --name \"heatmapCalendar\" --file heatmapCalendar.min.js "
+    "build": "rollup ./src/heatmapCalendar.js --format iife --name \"heatmapCalendar\" --file heatmapCalendar.min.js"
   },
   "repository": {
     "type": "git",
