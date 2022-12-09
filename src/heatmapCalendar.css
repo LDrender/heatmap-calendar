@@ -22,9 +22,21 @@
     color: var(--color-text);
 }
 
+.calendar-heatmap .calendar-heatmap-month {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.calendar-heatmap .calendar-heatmap-month .calendar-heatmap-month-name {
+    color: var(--color-text);
+    text-transform: capitalize;
+}
+
 .calendar-heatmap .calendar-heatmap-date-container {
     display: flex;
     gap: var(--cell-gap);
+    justify-content: center;
 }
 
 .calendar-heatmap .calendar-heatmap-date-container .calendar-heatmap-column {
@@ -34,8 +46,8 @@
 }
 .calendar-heatmap .calendar-heatmap-day {
     width: var(--cell-size);
-    height: var(--cell-size);
-    margin: 1px;
+    max-width: var(--cell-size);
+    aspect-ratio: 1/1;
     border-radius: var(--cell-radius);
     border: 1px solid rgba(255, 255, 255, 0.05);
     position: relative;

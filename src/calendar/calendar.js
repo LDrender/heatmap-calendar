@@ -6,18 +6,6 @@ import Options from "./options";
 
 export default class Calendar extends Options {
 
-
-
-    // Init calendar options
-    initOptions() {
-
-    }
-
-    // Init calendar data
-    initData() {
-        
-    }
-
     // Draw the calendar heatmap
     drawContainer() {
 
@@ -47,6 +35,10 @@ export default class Calendar extends Options {
             calendar.appendChild(title);
         }
 
+        const calendarMonth = document.createElement('div');
+        calendarMonth.classList.add('calendar-heatmap-month');
+        calendar.appendChild(calendarMonth);
+
         // Create the calendar date container
         const dateContainer = document.createElement('div');
         dateContainer.classList.add('calendar-heatmap-date-container');
@@ -62,17 +54,16 @@ export default class Calendar extends Options {
         }
 
         // Draw the calendar heatmap
-        this.drawCalendarData(dateContainer);
+        this.drawCalendarData(dateContainer, calendarMonth);
     }
         
-    drawCalendarData(container) {
+    drawCalendarData(container, monthContainer) {
         
         // Draw the columns calendar heatmap
-        const calcDay = super.config.calculateDays();
+        const calcDay = super.config.calculateDateParameters();
         const level = super.config.legend.toolTip_value;
+        const firstDate = new Date(calcDay.startDate.setDate(calcDay.startDate.getDate()));
         let day = 0;
-        let dayMore = 0;
-
 
         while(day <= calcDay.nbrDays){
 
@@ -91,18 +82,20 @@ export default class Calendar extends Options {
 
                 // Set date
                 const date = new Date(calcDay.startDate.setDate(calcDay.startDate.getDate() + 1));
+
                 const formatDate = date.toLocaleDateString().slice(0, 10);
                 newDay.dataset.date = formatDate;
 
                 // Check if the last day or current day
-                if(date.toISOString().slice(0, 10) === super.config.currentDate) {
+                if(date.toLocaleDateString('en-US') === super.config.currentDate) {
                     newDay.classList.add('current');
                 }
 
                 // Check if the date exists in a variable of the object and get the corresponding value to give it as dataset else set the value to 0
                 if(super.config.data) {
                     super.config.data.forEach((item) => {
-                        if(item.date === date.toISOString().slice(0, 10)) {
+                        const tempDate = new Date(item.date);
+                        if(tempDate.toLocaleDateString('en-US') === date.toLocaleDateString('en-US')) {
                             newDay.dataset.value = item.value;
                         }
                         else if(!newDay.dataset.value) {
@@ -143,7 +136,32 @@ export default class Calendar extends Options {
 
             container.appendChild(column);
         }
+
+        let firstDay = firstDate.getDate();
+        let firstMonth = firstDate.getMonth();
+        let displayMonth = super.config.nbrDisplayMonth;
+        if(super.config.display === 'month') {
+            displayMonth = displayMonth === 12 ? 1 : displayMonth;
+        }
+        else if (super.config.display === 'year') {
+            displayMonth = 12;
+        }
         
+        // Set the next month if the first day is superior to 15
+        if(firstDay > 15) {
+            firstMonth++;
+        }
+
+        // Write the name of the month according to the number of nbrDisplayMonth
+        for(let i = 0; i < displayMonth; i++) {
+            const month = document.createElement('span');
+            const monthDate = new Date(new Date().setMonth(firstMonth));
+            month.classList.add('calendar-heatmap-month-name');
+            month.textContent = monthDate.toLocaleDateString(super.config.language, { month: 'short' });
+            monthContainer.appendChild(month);
+            firstMonth++;
+        }
+                
     }
 
     drawLegende(container) {

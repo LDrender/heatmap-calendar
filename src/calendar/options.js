@@ -2,25 +2,36 @@ export default class Options {
     constructor() {
         // Default options
         Options.prototype.config = {
-            // Style (light or dark)
-            style: 'dark',
+
             style: {
+                // Defines the style of the heatmap (light or dark)
                 type: 'dark',
+                // Defines the size of the heatmap cells
                 cellSize: 20,
+                // Defines the radius of the rounded cells
                 cellRadius: 3,
-                cellGap: 1,
+                // Defines the spacing between cells
+                cellGap: 4,
+                // Defines the color of cells for level 0
                 cellColor_level_0: 'rgba(110, 118, 129, 25%)',
+                // Defines the color of cells for level 1
                 cellColor_level_1: '#0e4429',
+                // Defines the color of cells for level 2
                 cellColor_level_2: '#006d32',
+                // Defines the color of cells for level 3
                 cellColor_level_3: '#26a641',
+                // Defines the color of cells for level 4
                 cellColor_level_4: '#39d353',
             },
+
+            // Select language ('en-US', 'fr-FR', ...)
+            language: 'en-US',
 
             //Selector string for the calendar container to append the calendar to
             container: '#heatmap-cal',
 
             //The number of months to display (default & max: 12)
-            monthsDisplay: 12,
+            nbrDisplayMonth: 12,
 
             //The number of days to display per column
             days: 7,
@@ -29,20 +40,13 @@ export default class Options {
             month: 12,
 
             //The current date to display the calendar from
-            currentDate: new Date().toISOString().slice(0, 10),
+            currentDate: new Date().toLocaleDateString('en-US').slice(0, 10),
 
             //The display mode to use ('year', 'month', 'day', 'custom', 'auto')
-            // 'auto' will use the current date. Tips : set the 'monthsDisplay' option to 12
+            // 'auto' will use the current date. Tips : set the 'nbrDisplayMonth' option to 12
             // 'year' will start on the first day of the year. Tips : this mods will display 12 months necessarily
             // 'month' will start on the month specified in the 'month' option. Tips : this mods will display 1 month necessarily
-            displayMode: 'auto',
-
-            // =================
-            //  = Data Option =
-            // =================
-
-            //The data to use for the calendar {object}
-            data: [],
+            display: 'auto',
 
             // ====================
             //  = Display Option =
@@ -90,14 +94,7 @@ export default class Options {
             bissextile: this.bissextile,
 
             // getDateFrom function
-            getDateFrom: this.getDateFrom,
-
-            // getDaysInMonth function
-            getDaysInMonth: this.getDaysInMonth,
-
-            // calculateDays function
-            calculateDays: this.calculateDays,
-
+            calculateDateParameters: this.calculateDateParameters,
         };
     }
 
@@ -212,88 +209,65 @@ export default class Options {
     };
 
     // getDateFrom function
-    getDateFrom() {
-        if (this.displayMode === 'year') {
-            return new Date(new Date().getFullYear(), 0, 0);
-        }
-        else if (this.displayMode === 'month') {
-            let month = this.month === 12 ? new Date().getMonth() : this.month;
-            return new Date(new Date().getFullYear(), month, 1);
-        }
-
-        if (this.monthsDisplay === 12) {
-            return new Date(new Date().setDate(new Date().getDate() - (this.bissextile())));
-        }
-        else {
-            let month = this.month === 12 ? new Date().getMonth() : this.month;
-            let date = new Date(new Date().getFullYear(), month, 0);
-            let year = date.getFullYear();
-
-            if (this.month === 12) {
-                month = month - (this.monthsDisplay - 1);
-
-                if (month < 0) {
-                    month = 11 + month;
-                    year = year - 1;
-                }
-
-                date = new Date(year, month, 0);
-            }
-
-            return date;
-        }
-    }
-
-    // displayMode function
-    calculateDays() {
+    calculateDateParameters() {
+        let current = new Date();
+        let month = this.month === 12 ? current.getMonth() : this.month;
+        let year = current.getFullYear();
+        let date = null;
         let nbrDays = 0;
-        let startDate = null;
 
-        if (this.displayMode === 'auto') {
-            if (this.monthsDisplay === 12) {
-                nbrDays = this.bissextile();
-                startDate = this.getDateFrom('year');
+        if (this.display === 'year') {
+            date = new Date(year, 0, 0);
+            nbrDays = this.bissextile();
+        }
+        else if (this.nbrDisplayMonth === 12) {
+            if(this.display === 'month') {
+                date = new Date(year, month, 0);
+                nbrDays = new Date(year, month + 1, 0).getDate();
             }
             else {
-                startDate = this.getDateFrom();
-                nbrDays = this.getDaysInMonth(startDate);
+                date = new Date(new Date().setDate(current.getDate() - (this.bissextile())));
+                nbrDays = this.bissextile();
             }
         }
-        else if (this.displayMode === 'year') {
-            nbrDays = this.bissextile();
-            startDate = this.getDateFrom('year');
-        }
-        else if (this.displayMode === 'month') {
-            startDate = this.getDateFrom('month');
-            nbrDays = new Date(new Date().getFullYear(), startDate.getMonth() + 1, 0).getDate();
-        }
         else {
-            nbrDays = this.bissextile();
-            startDate = this.getDateFrom('year');
+            if (this.display === 'month') {
+                current = new Date(current.setDate(new Date(year, month + 1, 0).getDate()));
+            }
+
+            let monthsAgo = current.getMonth() - (this.nbrDisplayMonth - 1);
+            let yearAgo = current.getFullYear();
+            if (monthsAgo < 0) {
+                yearAgo--;
+                monthsAgo = 11 + monthsAgo;
+            }
+
+            let dateAgo = new Date(yearAgo, monthsAgo, 0);
+            if(this.display === 'month') {
+                month = dateAgo.getMonth() + 2;
+            }
+            else {
+                month = dateAgo.getMonth() + 1;
+            }
+            year = dateAgo.getFullYear();
+
+            for (let i = 0; i < this.nbrDisplayMonth; i++) {
+
+                if (month > 11) {
+                    month = 0;
+                    year++;
+                }
+                nbrDays += new Date(new Date().getFullYear(), month, 0).getDate();
+                console.log(new Date(new Date().getFullYear(), month, 0), new Date(new Date().getFullYear(), month, 0).getDate())
+    
+                month++;
+            }
+            date = new Date(current.setDate(current.getDate() - nbrDays));
         }
 
         return {
             nbrDays: nbrDays,
-            startDate: startDate
-        }
-    }
-
-    getDaysInMonth(startMouth) {
-        let nbrDays = 0;
-        let month = startMouth.getMonth() + 1;
-        let year = new Date(startMouth).getFullYear();
-
-        for (let i = 0; i < this.monthsDisplay; i++) {
-
-            if (month > 11) {
-                month = 0;
-                year++;
-            }
-            nbrDays += new Date(new Date().getFullYear(), month, 0).getDate();
-
-            month++;
-        }
-
-        return nbrDays;
+            startDate: date
+        };
     }
 }
