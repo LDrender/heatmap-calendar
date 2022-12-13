@@ -28,21 +28,25 @@ export default class Calendar extends Options {
         document.querySelector(super.config.container).appendChild(calendar);
 
         // Create the calendar heatmap title
-        if(super.config.title) {
+        if(super.config.title && super.config.title !== '' && super.config.title !== null) {
             const title = document.createElement('h2');
             title.classList.add('calendar-heatmap-title');
             title.textContent = super.config.title;
             calendar.appendChild(title);
         }
 
+        const contentContainer = document.createElement('div');
+        contentContainer.classList.add('calendar-heatmap-content-container');
+        calendar.appendChild(contentContainer);
+
         const calendarMonth = document.createElement('div');
         calendarMonth.classList.add('calendar-heatmap-month');
-        calendar.appendChild(calendarMonth);
+        contentContainer.appendChild(calendarMonth);
 
         // Create the calendar date container
         const dateContainer = document.createElement('div');
         dateContainer.classList.add('calendar-heatmap-date-container');
-        calendar.appendChild(dateContainer);
+        contentContainer.appendChild(dateContainer);
 
         // Create the calendar heatmap legend
         if(super.config.legend.show) {
