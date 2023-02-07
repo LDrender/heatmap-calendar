@@ -1,6 +1,6 @@
 .calendar-heatmap {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    width: 100%;                        /* Size of the calendar */
+    width: fit-content;                        /* Size of the calendar */
     --color-text: #1e1e1e;            /* Color text and background color tooltips */
     --color-text-reverse: #e1e1e1;    /* Color text tooltips */
     --color-data-level-0: #6e768140;  /* Background color cell [Data-level 0] */
@@ -43,11 +43,11 @@
     display: flex;
     flex-direction: column;
     gap: var(--cell-gap);
-    width: 100%;
+    width: calc(var(--cell-size) + 2px);
     max-width: calc(var(--cell-size) + 2px);
 }
 .calendar-heatmap .calendar-heatmap-day {
-    width: 100%;
+    width: var(--cell-size);
     max-width: var(--cell-size);
     aspect-ratio: 1/1;
     border-radius: var(--cell-radius);
@@ -121,7 +121,7 @@
 
 .calendar-heatmap .calendar-heatmap-day[data-tooltip]::before,
 .calendar-heatmap .calendar-heatmap-day[data-tooltip]::after {
-    top: -100%;
+    top: -75%;
 	left: 50%;
 	position: absolute;
 	color: var(--color-text-reverse);
@@ -146,12 +146,11 @@
 	display: block;
 	font-size: .8rem;
 	padding: 5px 10px;
-	box-shadow: 3px 3px 5px rgb(0 0 0 / 40%);
     transform: translate(-50%, -100%);
 }
 
 .calendar-heatmap .calendar-heatmap-day[data-tooltip]::after {
-    transform: translate(-50%, 0%);
+    transform: translate(-50%, -1px);
 	content: "";
 	width: 0%;
 	height: 0%;

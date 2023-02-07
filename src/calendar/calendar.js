@@ -68,6 +68,8 @@ export default class Calendar extends Options {
         const level = super.config.legend.toolTip_value;
         const firstDate = new Date(calcDay.startDate.setDate(calcDay.startDate.getDate()));
         let day = 0;
+        let monthList = [];
+        let previousMonth = null;
 
         while(day <= calcDay.nbrDays){
 
@@ -89,6 +91,12 @@ export default class Calendar extends Options {
 
                 const formatDate = date.toLocaleDateString().slice(0, 10);
                 newDay.dataset.date = formatDate;
+                const currentMonth = date.getMonth();
+
+                if(currentMonth !== previousMonth) {
+                    previousMonth = currentMonth;
+                    monthList.push(date.toLocaleString(super.config.language, { month: 'short' }));
+                }
 
                 // Check if the last day or current day
                 if(date.toLocaleDateString('en-US') === super.config.currentDate) {
@@ -141,29 +149,14 @@ export default class Calendar extends Options {
             container.appendChild(column);
         }
 
-        let firstDay = firstDate.getDate();
-        let firstMonth = firstDate.getMonth();
-        let displayMonth = super.config.nbrDisplayMonth;
-        if(super.config.display === 'month') {
-            displayMonth = displayMonth === 12 ? 1 : displayMonth;
-        }
-        else if (super.config.display === 'year') {
-            displayMonth = 12;
-        }
-        
-        // Set the next month if the first day is superior to 15
-        if(firstDay > 15) {
-            firstMonth++;
-        }
 
-        // Write the name of the month according to the number of nbrDisplayMonth
-        for(let i = 0; i < displayMonth; i++) {
+
+        // Write the name of the months
+        for(let i = 0; i < monthList.length; i++) {
             const month = document.createElement('span');
-            const monthDate = new Date(new Date().setMonth(firstMonth));
             month.classList.add('calendar-heatmap-month-name');
-            month.textContent = monthDate.toLocaleDateString(super.config.language, { month: 'short' });
+            month.textContent = monthList[i];
             monthContainer.appendChild(month);
-            firstMonth++;
         }
                 
     }

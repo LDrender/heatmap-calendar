@@ -258,11 +258,34 @@ export default class Options {
                     year++;
                 }
                 nbrDays += new Date(new Date().getFullYear(), month, 0).getDate();
-                console.log(new Date(new Date().getFullYear(), month, 0), new Date(new Date().getFullYear(), month, 0).getDate())
-    
+                console.log(nbrDays)
+                
                 month++;
             }
             date = new Date(current.setDate(current.getDate() - nbrDays));
+        }
+
+        if(this.display === 'auto') {
+            // Get current width of the container
+            let widthContainer = document.querySelector(this.container).clientWidth;
+            let nbrColumn = Math.floor(nbrDays / this.days);
+            // Get width per column (cellSize + cellGap + 2) 2 = 1px border left + 1px border right
+            let widthPerColumn = this.style.cellSize + this.style.cellGap + 2;
+            let widthTotalColumn = widthPerColumn * nbrColumn;
+
+            if (widthTotalColumn > widthContainer) {
+
+                let nbrDeduct = 0;
+
+                while (widthTotalColumn > widthContainer) {
+                    nbrDeduct++;
+                    widthTotalColumn = widthPerColumn * (nbrColumn - nbrDeduct);
+                }
+
+                nbrDeduct++;
+                nbrDays = nbrDays - (nbrDeduct * this.days);
+                date = new Date(current.setDate(current.getDate() - nbrDays));
+            }
         }
 
         return {
