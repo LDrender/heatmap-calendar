@@ -258,7 +258,6 @@ export default class Options {
                     year++;
                 }
                 nbrDays += new Date(new Date().getFullYear(), month, 0).getDate();
-                console.log(nbrDays)
                 
                 month++;
             }
